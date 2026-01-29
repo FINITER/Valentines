@@ -1,189 +1,151 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Be My Valentine</title>
+  <meta charset="UTF-8">
+  <title>Will You Be My Valentine? 💘</title>
+
   <style>
-    * { box-sizing: border-box; font-family: 'Poppins', system-ui, sans-serif; }body {
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle at top, #ff9a9e, #fad0c4, #fbc2eb);
-  color: #3b0a2a;
-  overflow: hidden;
-}
+    * {
+      box-sizing: border-box;
+      font-family: 'Comic Sans MS', cursive;
+    }
 
-.card {
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(10px);
-  padding: 36px 28px 40px;
-  border-radius: 24px;
-  text-align: center;
-  box-shadow: 0 30px 90px rgba(0,0,0,.25);
-  max-width: 420px;
-  width: 92%;
-  position: relative;
-  z-index: 2;
-}
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
 
-.gif {
-  width: 140px;
-  margin-bottom: 10px;
-  border-radius: 16px;
-}
+    h1 {
+      color: #fff;
+      font-size: 3rem;
+      text-shadow: 2px 2px #ff69b4;
+      text-align: center;
+      margin-bottom: 50px;
+    }
 
-h1 {
-  margin: 10px 0 6px;
-  font-size: 30px;
-}
+    button {
+      position: absolute;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
 
-h1 span { color: #ec4899; }
+    #yesBtn {
+      background: #ff1493;
+      color: white;
+      left: 40%;
+      top: 55%;
+      box-shadow: 0 0 10px #ff69b4;
+      z-index: 10;
+    }
 
-p {
-  opacity: .85;
-  margin-bottom: 26px;
-  font-size: 15px;
-}
+    #noBtn {
+      background: white;
+      color: #ff1493;
+      left: 55%;
+      top: 55%;
+      box-shadow: 0 0 10px #ff69b4;
+      z-index: 10;
+    }
 
-.buttons {
-  position: relative;
-  height: 180px;
-}
-
-button {
-  padding: 16px 34px;
-  border-radius: 999px;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  transition: all .3s ease;
-  position: absolute;
-  font-weight: 600;
-}
-
-#yes {
-  background: linear-gradient(135deg, #ec4899, #f472b6);
-  color: white;
-  left: 50%;
-  transform: translateX(-50%) scale(1);
-  bottom: 0;
-  box-shadow: 0 12px 30px rgba(236,72,153,.45);
-  z-index: 2;
-}
-
-#no {
-  background: #f1f5f9;
-  color: #334155;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 8px 20px rgba(0,0,0,.15);
-  z-index: 1;
-}
-
-#yes.fullscreen {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  border-radius: 0;
-  font-size: 48px;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hearts {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 998;
-}
-
-.heart {
-  position: absolute;
-  font-size: 24px;
-  animation: float 3s linear forwards;
-}
-
-@keyframes float {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-120vh); opacity: 0; }
-}
-
+    #result {
+      display: none;
+      font-size: 4rem;
+      color: white;
+      text-shadow: 3px 3px #ff1493;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      flex-direction: column;
+      text-align: center;
+    }
   </style>
 </head>
-<body>  <audio id="bgMusic" loop>
-  <source src="glue.mp3" type="audio/mpeg">
-</audio>  <div class="card" id="card">
-    <img class="gif" src="https://media.tenor.com/1dX3Jm5Y3vUAAAAi/teddy-bear-love.gif" alt="cute teddy" />
-    <h1>Be My <span>Valentine</span></h1>
-    <p>You know you want to say yes 💗</p><div class="buttons">
-  <button id="no">No</button>
-  <button id="yes">Yes</button>
-</div>
 
-  </div>  <div class="hearts" id="hearts"></div>  <script>
-    const noBtn = document.getElementById('no');
-    const yesBtn = document.getElementById('yes');
-    const card = document.getElementById('card');
-    const music = document.getElementById('bgMusic');
-    const hearts = document.getElementById('hearts');
+<body>
 
-    let tries = 0;
-    let musicStarted = false;
+  <!-- Background music -->
+  <audio autoplay loop>
+    <source src="glue.mp3" type="audio/mpeg">
+  </audio>
 
-    function startMusic() {
-      if (!musicStarted) {
-        music.play().catch(()=>{});
-        musicStarted = true;
-      }
+  <div id="main" class="container">
+    <h1>Will you be my Valentine? 🥰💖</h1>
+
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <div id="result">
+    HELL YEAH 🔥
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const main = document.getElementById("main");
+    const result = document.getElementById("result");
+
+    let noClicks = 0;
+    let yesScale = 1;
+
+    const yesTexts = [
+      "Yes 🥰",
+      "Pretty please 💖",
+      "I’m yours 😘",
+      "Say yes, please 🥺",
+      "You + Me ❤️"
+    ];
+
+    function goToHellYeah() {
+      main.style.display = "none";
+      result.style.display = "flex";
     }
 
-    noBtn.addEventListener('mouseover', () => {
-      startMusic();
-      const x = Math.random() * 260 - 130;
-      const y = Math.random() * 120 - 60;
-      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    // CLICK YES → immediately HELL YEAH
+    yesBtn.addEventListener("click", () => {
+      goToHellYeah();
     });
 
-    yesBtn.addEventListener('click', () => {
-      startMusic();
-      tries++;
+    // CLICK NO → chaos + Yes grows
+    noBtn.addEventListener("click", () => {
+      noClicks++;
 
-      const scale = 1 + tries * 0.25;
-      yesBtn.style.transform = `translateX(-50%) scale(${scale})`;
+      // YES BUTTON GROWS
+      yesScale += 0.4;
+      yesBtn.style.transform = `scale(${yesScale})`;
 
-      if (tries === 3) {
-        yesBtn.textContent = 'PRETTY PLEASEEE!!';
+      // CHANGE YES TEXT
+      if (noClicks < yesTexts.length) {
+        yesBtn.innerText = yesTexts[noClicks];
+      } else if (noClicks === 5) {
+        // YES BUTTON TAKES OVER SCREEN
+        yesBtn.innerText = "PLEASEEE ❤️";
+        yesBtn.style.width = "100vw";
+        yesBtn.style.height = "100vh";
+        yesBtn.style.left = "0";
+        yesBtn.style.top = "0";
+        yesBtn.style.borderRadius = "0";
+        yesBtn.style.fontSize = "4rem";
+        yesBtn.style.zIndex = "1000";
       }
 
-      if (tries === 5) {
-        yesBtn.textContent = 'PLEASEEEE';
-        card.style.opacity = '0';
-        setTimeout(() => {
-          yesBtn.classList.add('fullscreen');
-          yesBtn.textContent = 'HELL YEAHH 🔥';
-          yesBtn.style.background = 'linear-gradient(135deg, #22c55e, #4ade80)';
-          spawnHearts();
-        }, 300);
-      }
+      // MOVE NO BUTTON RANDOMLY
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
     });
-
-    function spawnHearts() {
-      for (let i = 0; i < 35; i++) {
-        const h = document.createElement('div');
-        h.className = 'heart';
-        h.textContent = '💗';
-        h.style.left = Math.random() * 100 + 'vw';
-        h.style.bottom = '-20px';
-        h.style.animationDuration = (2 + Math.random() * 2) + 's';
-        hearts.appendChild(h);
-        setTimeout(() => h.remove(), 4000);
-      }
-    }
-  </script></body>
+  </script>
+</body>
 </html>
